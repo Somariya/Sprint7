@@ -34,37 +34,37 @@ public class OrderTest {
     }
 
     public void OrderTest(List<String> colour) {
-            this.colour = colour;
-        }
+        this.colour = colour;
+    }
 
 
-     @Parameterized.Parameters
-        public static Object[][] getTestData() {
-            return new Object[][] {
-                    {List.of("BLACK")},
-                    {List.of("GREY")},
-                    {List.of("GREY","BLACK")},
-                    {List.of()},
-            };
-        }
+    @Parameterized.Parameters
+    public static Object[][] getTestData() {
+        return new Object[][] {
+                {List.of("BLACK")},
+                {List.of("GREY")},
+                {List.of("GREY","BLACK")},
+                {List.of()},
+        };
+    }
 
 
 
     @Test
     public void orderTest(){
-         createOrderRequest=randomOrder();
-         createOrderRequest.setColor(colour);
+        createOrderRequest=randomOrder();
+        createOrderRequest.setColor(colour);
         ValidatableResponse response = (ValidatableResponse) orderApiClient.createOrder(createOrderRequest);
-         trackId = response.extract().path("track");
+        trackId = response.extract().path("track");
 
-         assertThat("Статус код неверный при создании заказа",
-                    response.extract().statusCode(), equalTo(SC_CREATED));
-         assertThat("Неверное сообщение при создании заказа",
-                    response.extract().path("track"),instanceOf(Integer.class));
+        assertThat("Статус код неверный при создании заказа",
+                response.extract().statusCode(), equalTo(SC_CREATED));
+        assertThat("Неверное сообщение при создании заказа",
+                response.extract().path("track"),instanceOf(Integer.class));
 
 
 
-     }
+    }
 
     @After
     public void tearDown() {
@@ -74,4 +74,3 @@ public class OrderTest {
 
     }
 }
-

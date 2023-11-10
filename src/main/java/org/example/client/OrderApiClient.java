@@ -1,7 +1,6 @@
 package org.example.client;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
-import org.example.model.CreateCourierRequest;
 import org.example.model.CreateOrderRequest;
 import org.example.model.CreateOrderResponse;
 
@@ -19,13 +18,19 @@ public class OrderApiClient extends BaseApiClient {
                 .post(BASE_URL + ORDER);
     }
 
-    public ValidatableResponse  deleteOrder(int trackId){
+    public void deleteOrder(int trackId){
         CreateOrderResponse createOrderResponse=new CreateOrderResponse(trackId);
-        return (ValidatableResponse) getPostSpec()
+        getPostSpec()
                 .body(createOrderResponse)
                 .when()
-                .put(BASE_URL+DELETE_ORDER);
+                .put(BASE_URL + DELETE_ORDER);
     }
+    public Response getOrderList(){
+       return getPostSpec()
+                .when()
+                .get(BASE_URL + "/api/v1/orders");
+    }
+
 
 
 

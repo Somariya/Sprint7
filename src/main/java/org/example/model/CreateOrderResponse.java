@@ -9,9 +9,4 @@ public class CreateOrderResponse {
     }
 
 
-    //  public int track;
-
-  //  public CreateOrderResponse(int track){
-    //    this.track=track;
-  //  }
 }
